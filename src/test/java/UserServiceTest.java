@@ -14,8 +14,7 @@ public class UserServiceTest {
     private final String testLastName = "Ivanov";
     private final byte testAge = 5;
 
-    public UserServiceTest() throws SQLException {
-    }
+
 
 
     @Test
@@ -42,8 +41,11 @@ public class UserServiceTest {
     public void saveUser() {
         try {
             userService.dropUsersTable();
+
             userService.createUsersTable();
+
             userService.saveUser(testName, testLastName, testAge);
+
 
             User user = userService.getAllUsers().get(0);
 
@@ -78,6 +80,7 @@ public class UserServiceTest {
             userService.createUsersTable();
             userService.saveUser(testName, testLastName, testAge);
             List<User> userList = userService.getAllUsers();
+            System.out.println(userList.get(0).toString());
 
             if (userList.size() != 1) {
                 Assert.fail("Проверьте корректность работы метода сохранения пользователя/удаления или создания таблицы");

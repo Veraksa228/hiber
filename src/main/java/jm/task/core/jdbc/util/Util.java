@@ -3,12 +3,16 @@ package jm.task.core.jdbc.util;
 
 
 
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class Util {
+
     private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private static final String URL = "jdbc:mysql://localhost:3306/katabd";
     private static final String USER = "root";
@@ -24,10 +28,10 @@ public class Util {
             Class.forName(DRIVER);
             connection = DriverManager.getConnection(URL, USER, PSW);
 
-            System.out.println("CONN OK");
+
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            System.out.println("CONN OFF");
+
         }
         return connection;
 
