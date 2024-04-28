@@ -23,7 +23,7 @@ public class Main {
         service.saveUser("Sasha", "Kot", (byte) 24);
         System.out.println("User с именем Sasha добаблен в базу данных");
         List<User> users = service.getAllUsers();
-        for(User user: users){
+        for (User user : users) {
             System.out.println(user.toString());
         }
         service.cleanUsersTable();

@@ -12,19 +12,19 @@ public class UserDaoJDBCImpl implements UserDao {
 
     }
 
-    private final Util util = new Util();
 
-    private boolean tableExists(Connection connection) throws SQLException {
+
+    private boolean tableExists(Connection connection, String tableName) throws SQLException {
         DatabaseMetaData meta = connection.getMetaData();
-        ResultSet resultSet = meta.getTables(null, null, "user", new String[]{"TABLE"});
+        ResultSet resultSet = meta.getTables(null, null, tableName, new String[]{"TABLE"});
 
         return resultSet.next();
     }
 
     public void createUsersTable() throws SQLException {
 
-        Connection connection = util.getConnection();
-        if (!tableExists(util.getConnection())) {
+        Connection connection = Util.getConnection();
+        if (!tableExists(Util.getConnection(), "user")) {
             Statement statement = connection.createStatement();
             String create = """
                     CREATE TABLE user\s
@@ -39,8 +39,8 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void dropUsersTable() throws SQLException {
-        Statement statement = util.getConnection().createStatement();
-        if (tableExists(util.getConnection())) {
+        Statement statement = Util.getConnection().createStatement();
+        if (tableExists(Util.getConnection(), "user")) {
             String drop = "drop table user";
             statement.executeUpdate(drop);
         }
@@ -48,7 +48,7 @@ public class UserDaoJDBCImpl implements UserDao {
 
     public void saveUser(String name, String lastName, byte age) throws SQLException {
         try {
-            Statement statement = util.getConnection().createStatement();
+            Statement statement = Util.getConnection().createStatement();
             String save = "insert into user (name,lastname,age)"
                     + "values ('" + name + "','" + lastName + "','" + age + "')";
             statement.executeUpdate(save);
@@ -60,13 +60,13 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) throws SQLException {
-        Statement statement = util.getConnection().createStatement();
+        Statement statement = Util.getConnection().createStatement();
         String clean = "delete from user where id = '" + id + "'";
         statement.executeUpdate(clean);
     }
 
     public List<User> getAllUsers() throws SQLException {
-        Statement statement = util.getConnection().createStatement();
+        Statement statement = Util.getConnection().createStatement();
         String getUsers = "select * from user";
         List<User> users = new ArrayList<>();
         ResultSet listUsers = statement.executeQuery(getUsers);
@@ -82,7 +82,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void cleanUsersTable() throws SQLException {
-        Statement statement = util.getConnection().createStatement();
+        Statement statement = Util.getConnection().createStatement();
         String clean = "TRUNCATE TABLE user";
         statement.executeUpdate(clean);
 
