@@ -16,7 +16,10 @@ import java.util.Properties;
 
 public class Util {
     private static SessionFactory sessionFactory;
-
+    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
+    private static final String URL = "jdbc:mysql://localhost:3306/katabd";
+    private static final String USER = "root";
+    private static final String PSW = "1234";
 
     public static SessionFactory getSessionFactory() {
         if (sessionFactory == null) {
@@ -47,11 +50,6 @@ public class Util {
         return sessionFactory;
     }
 
-    private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
-    private static final String URL = "jdbc:mysql://localhost:3306/katabd";
-    private static final String USER = "root";
-    private static final String PSW = "1234";
-
 
     public static Connection getConnection() throws SQLException {
         Connection connection = null;
@@ -65,10 +63,6 @@ public class Util {
 
         }
         return connection;
-
-
     }
-
-
 }
 
